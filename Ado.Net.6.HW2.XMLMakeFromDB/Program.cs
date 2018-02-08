@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Data;
+using System.IO;
 using System.Xml.Linq;
 
 namespace Ado.Net._6.HW2.XMLMakeFromDB
@@ -16,7 +17,10 @@ namespace Ado.Net._6.HW2.XMLMakeFromDB
         static void Main(string[] args)
         {
             GetDataToXml();
-            Task1();
+            //Task1();
+            //Task2();
+            //Task3();
+            Task4();
         }
 
         static void GetDataToXml()
@@ -35,6 +39,7 @@ namespace Ado.Net._6.HW2.XMLMakeFromDB
                 adapter.Fill(ds.Tables["Area"]);
 
                 ds.WriteXml("areadb.xml");
+                Console.WriteLine("Где скрипт для таблицы таймер в дз?");
                 Console.WriteLine("Данные сохранены в файл");
             }
 
@@ -52,12 +57,64 @@ namespace Ado.Net._6.HW2.XMLMakeFromDB
                         new XElement("AreaId", item.AreaId),
                         new XElement("Name", item.Name),
                         new XElement("ParentId", item.ParentId)));
-             
+                xDoc.Save(item.AreaId + ".xml");
             }
 
-           
-            Console.WriteLine("done");
+            Console.WriteLine("task 1 done");
         }
+
+        static void Task2()
+        {
+            foreach (var item in db.Areas)
+            {
+                DirectoryInfo dir = new DirectoryInfo(@"area\" + item.Name + "(" + item.AreaId + ")");
+                dir.Create();
+                XDocument xDoc = new XDocument(
+                    new XElement("Area",
+                        new XElement("AreaId", item.AreaId),
+                        new XElement("Name", item.Name),
+                        new XElement("ParentId", item.ParentId)));
+                xDoc.Save(dir + ".xml");
+            }
+            Console.WriteLine("task 2 done");
+        }
+
+        static void Task3()
+        {
+
+            var query = db.Areas.Where(w => w.ParentId == 0);
+
+            foreach (Area item in query)
+            {
+                XDocument xDoc = new XDocument(
+                    new XElement("Area",
+                        new XElement("AreaId", item.AreaId),
+                        new XElement("Name", item.Name),
+                        new XElement("ParentId", item.ParentId)));
+                xDoc.Save(item.AreaId + ".xml");
+            }
+
+            Console.WriteLine("task 3 done");
+        }
+
+        static void Task4()
+        {
+            var query = db.Areas.Select(s => s);
+            foreach (var item in query)
+            {
+                XElement f = new XElement(item.FullName, item.Name );
+                XNamespace ns = "http:\\logbook.itstep.org";
+                f.Save("test2.xml");
+            }
+           
+
+       
+
+           
+
+
+        }
+
 
     }
 }
