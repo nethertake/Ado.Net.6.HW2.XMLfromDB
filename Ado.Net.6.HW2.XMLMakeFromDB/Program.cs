@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Data;
 using System.IO;
 using System.Xml.Linq;
+using System.Xml.XPath;
 
 namespace Ado.Net._6.HW2.XMLMakeFromDB
 {
@@ -99,18 +100,17 @@ namespace Ado.Net._6.HW2.XMLMakeFromDB
 
         static void Task4()
         {
-            var query = db.Areas.Select(s => s);
-            foreach (var item in query)
-            {
-                XElement f = new XElement(item.FullName, item.Name );
-                XNamespace ns = "http:\\logbook.itstep.org";
-                f.Save("test2.xml");
-            }
-           
+            var query = db.Areas.Select(s => s).First();
+            XName are = "area";
+            XNamespace ns = "http://logbook.itstep.org";
+            XElement f = new XElement( ns + "Area", query.FullName );
+                f.Save("test1.xml");
+        }
 
-       
+        static void Task5()
+        {
 
-           
+
 
 
         }
