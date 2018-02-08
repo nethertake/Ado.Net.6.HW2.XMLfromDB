@@ -5,15 +5,18 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Data;
+using System.Xml.Linq;
 
 namespace Ado.Net._6.HW2.XMLMakeFromDB
 {
     class Program
     {
+        public static Model1 db = new Model1();
      
         static void Main(string[] args)
         {
             GetDataToXml();
+            Task1();
         }
 
         static void GetDataToXml()
@@ -36,5 +39,25 @@ namespace Ado.Net._6.HW2.XMLMakeFromDB
             }
 
         }
+
+        static void Task1()
+        {
+
+            var query = db.Areas.Where(w => w.PavilionId == 1);
+
+            foreach (Area item in query)
+            {
+                XDocument xDoc = new XDocument(
+                    new XElement("Area",
+                        new XElement("AreaId", item.AreaId),
+                        new XElement("Name", item.Name),
+                        new XElement("ParentId", item.ParentId)));
+             
+            }
+
+           
+            Console.WriteLine("done");
+        }
+
     }
 }
