@@ -8,6 +8,8 @@ using System.Data;
 using System.IO;
 using System.Xml.Linq;
 using System.Xml.XPath;
+using System.Xml;
+
 
 namespace Ado.Net._6.HW2.XMLMakeFromDB
 {
@@ -21,7 +23,7 @@ namespace Ado.Net._6.HW2.XMLMakeFromDB
             //Task1();
             //Task2();
             //Task3();
-            Task4();
+            //Task4();
         }
 
         static void GetDataToXml()
@@ -93,6 +95,7 @@ namespace Ado.Net._6.HW2.XMLMakeFromDB
                         new XElement("Name", item.Name),
                         new XElement("ParentId", item.ParentId)));
                 xDoc.Save(item.AreaId + ".xml");
+              
             }
 
             Console.WriteLine("task 3 done");
@@ -107,14 +110,20 @@ namespace Ado.Net._6.HW2.XMLMakeFromDB
                 f.Save("test1.xml");
         }
 
-        static void Task5()
+        public static void Task5()
         {
 
+            XDocument xdoc = XDocument.Load("//test1.xml");
+
+            foreach (var item in xdoc.Nodes())
+            {
+                Console.WriteLine(item.element("UserID"));
+                Console.WriteLine(item.element("AreaId"));
+                Console.WriteLine(item.element("DocumentId"));
 
 
-
+            }
         }
 
-
-    }
+        }
 }
