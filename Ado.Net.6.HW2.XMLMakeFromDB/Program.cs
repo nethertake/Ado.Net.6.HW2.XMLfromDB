@@ -20,10 +20,10 @@ namespace Ado.Net._6.HW2.XMLMakeFromDB
         static void Main(string[] args)
         {
             GetDataToXml();
-            //Task1();
-            //Task2();
-            //Task3();
-            //Task4();
+          Task1();
+          Task2();
+           Task3();
+           Task4();
         }
 
         static void GetDataToXml()
@@ -110,20 +110,20 @@ namespace Ado.Net._6.HW2.XMLMakeFromDB
                 f.Save("test1.xml");
         }
 
-        public static void Task5()
-        {
+        //public static void Task5()
+        //{
 
-            XDocument xdoc = XDocument.Load("//test1.xml");
+        //    XDocument xdoc = XDocument.Load("//test1.xml");
 
-            foreach (var item in xdoc.Nodes())
-            {
-                Console.WriteLine(item.element("UserID"));
-                Console.WriteLine(item.element("AreaId"));
-                Console.WriteLine(item.element("DocumentId"));
+        //    foreach (var item in xdoc.Nodes())
+        //    {
+        //        Console.WriteLine(item.element("UserID"));
+        //        Console.WriteLine(item.element("AreaId"));
+        //        Console.WriteLine(item.element("DocumentId"));
 
 
-            }
-        }
+        //    }
+        //}
 
         }
 }
